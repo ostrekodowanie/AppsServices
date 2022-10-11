@@ -4,16 +4,18 @@ export default function Products({ user, setUser }) {
     const [products, setProducts] = useState('')
 
     useEffect(() => {
-        fetch('https://services.divideproject.works/api/user/apps', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user_id: user.id
-            })
-        }).then(res => res.json())
-        .then(data => setProducts(data))
+        if(user) {
+            fetch('https://services.divideproject.works/api/user/apps', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: user.id
+                })
+            }).then(res => res.json())
+            .then(data => setProducts(data))
+        }
     }, [])
 
     const handleLogout = () => {
@@ -34,10 +36,10 @@ export default function Products({ user, setUser }) {
 
 const Product = props => {
     return (
-        <div className="flex flex-col gap-3">
-            <img className="max-w-[3in]" src={props.image} alt="" />
-            <h3>{props.name}</h3>
-            <p>{props.desc}</p>
+        <div className="flex flex-col gap-2 pt-6">
+            <img className="max-w-[3in] rounded-xl shadow-primaryShadow" src={`https://services.divideproject.works/images/${props.image}`} alt="" />
+            <h3 className="text-lg font-medium">{props.name}</h3>
+            <p className="text-[#4A454F]">{props.desc}</p>
         </div>
     )
 }

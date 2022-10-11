@@ -4,7 +4,7 @@ export default function Products({ user, setUser }) {
     const [products, setProducts] = useState('')
 
     useEffect(() => {
-        fetch('https://services.divideproject.works/api/user/orders', {
+        fetch('https://services.divideproject.works/api/user/apps', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ export default function Products({ user, setUser }) {
 const Product = props => {
     return (
         <div className="flex flex-col gap-3">
-            <img src={props.image} alt="" />
+            <img className="max-w-[3in]" src={props.image} alt="" />
             <h3>{props.name}</h3>
             <p>{props.desc}</p>
         </div>

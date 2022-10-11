@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react"
 
-export default function Products({ user }) {
+export default function Products({ user, setUser }) {
     const [products, setProducts] = useState('')
 
     useEffect(() => {
-        localStorage.setItem('login', JSON.stringify(user))
         fetch('https://services.divideproject.works/api/user/orders', {
             method: 'POST',
             headers: {
@@ -17,8 +16,14 @@ export default function Products({ user }) {
         .then(data => setProducts(data))
     }, [])
 
+    const handleLogout = () => {
+        localStorage.removeItem('login')
+        return setUser(null)
+    }
+
     return (
-        <section className='flex flex-col items-center justify-center h-screen px-[8vw] md:px-[12vw] 2xl:px-[18vw]'>
+        <section className='flex flex-col items-center relative justify-center h-screen px-[8vw] md:px-[12vw] 2xl:px-[18vw]'>
+            <button className="absolute right-8 top-8" onClick={handleLogout}>Log out</button>
             <div className='p-12 gap-6  w-full shadow-primaryShadow rounded-3xl'>
                 <h1 className="font-semibold text-3xl">Hi <span className="text-primary">{user.username}</span></h1>
                 {products.length > 0 ? products.map(product => <Product {...product} key={product.id} />) : <h2 className="mt-6 text-[#4A454F]">Nothing's here! Buy something from our <a className="text-primary" href='https://services.divideproject.works/products' target='_blank'>store.</a></h2>}

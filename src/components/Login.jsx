@@ -10,11 +10,11 @@ export default function Login({ setUser }) {
         password: ''
     })
     
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
         setStatus('loading')
         try {
-            fetch('https://services.divideproject.works/api/login', {
+            await fetch('https://services.divideproject.works/api/login', {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -22,10 +22,13 @@ export default function Login({ setUser }) {
                 body: JSON.stringify(credentials)
             }).then(res => res.json())
             .then(data => jwtDecode(data.access))
-            .then(user => setUser({
-                id: user.user_id,
-                username: user.username
-            }))
+            .then(user => {
+                setUser({
+                    id: user.user_id,
+                    username: user.username
+                })
+                localStorage.setItem('login', JSON.stringify(user))
+            })
         } catch(err) {
             console.log(err)
         }

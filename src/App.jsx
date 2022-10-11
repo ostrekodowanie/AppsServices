@@ -1,13 +1,21 @@
 import Login from "./components/Login"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Products from "./components/Products"
+
+const loginFromLocalStorage = JSON.parse(localStorage.getItem('login'))
 
 function App() {
   const [user, setUser] = useState(null)
 
+  useEffect(() => {
+    if(loginFromLocalStorage) {
+      setUser(loginFromLocalStorage)
+    }
+  }, [])
+
   return (
     <main>
-      {user ? <Products user={user} /> : <Login setUser={setUser} />}
+      {user ? <Products user={user} setUser={setUser} /> : <Login setUser={setUser} />}
     </main>
   )
 }

@@ -23,11 +23,12 @@ export default function Login({ setUser }) {
             }).then(res => res.json())
             .then(data => jwtDecode(data.access))
             .then(user => {
-                setUser({
+                let userData = {
                     id: user.user_id,
                     username: user.username
-                })
-                localStorage.setItem('login', JSON.stringify(user))
+                }
+                setUser(userData)
+                localStorage.setItem('login', JSON.stringify(userData))
             })
         } catch(err) {
             console.log(err)
@@ -51,7 +52,7 @@ export default function Login({ setUser }) {
                         password: e.target.value
                     }
                 })} placeholder="Password" />
-                <button className="py-2 px-5 rounded-xl font-medium bg-[#852FF2] text-white">Log in</button>
+                <button className="py-2 px-5 w-max rounded-xl font-medium bg-[#852FF2] text-white">Log in</button>
                 <a className="text-[#852FF2] font-semibold" href="https://services.divideproject.works/products/4">Gain access</a>
             </form>
             <img className="max-w-[3in]" src={logo} alt="" />

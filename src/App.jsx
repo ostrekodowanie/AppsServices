@@ -8,6 +8,7 @@ function App() {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
+    console.log(window.location.pathname)
     if(loginFromLocalStorage) {
       setUser(loginFromLocalStorage)
     }

@@ -10,3 +10,16 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+@keyframes profileMenu {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.profile-menu {
+  animation: profileMenu 250ms ease-out;
+}
